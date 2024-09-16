@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library</title>
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <h2 class="title">Library</h2>
+    <div>
+        <dialog id="favDialog">
+            <form action="">
+                <div class="container">
+                    <h2>Login Form</h2>
+
+                    <div class="inputs">
+                        <label for="title"><b>title: </b></label>
+                        <input type="text" name="title" required>
+                        <label for="author"><b>author: </b></label>
+                        <input type="text" name="author" required>
+                        <label for="pages"><b>pages: </b></label>
+                        <input type="number" name="pages" required>
+                        <label for="read"><b>read:</b></label>
+                        <input id="readed" type="checkbox" name="read">
+                    </div>
+                </div>
+                <div>
+                    <button value="false" formmethod="dialog">Cancel</button>
+                    <button id="confirmBtn" value="true">Confirm</button>
+                </div>
+            </form>
+        </dialog>
+
+        <button id="showDialog">Add book</button>
+    </div>
+    <div class="books"></div>
+
+</body>
+
+</html>
