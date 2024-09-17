@@ -34,7 +34,7 @@ cancelBtn.addEventListener("click", (e) => {
 
 dialogForm.addEventListener("submit", (event) => {
     if (dialogForm.checkValidity()) {
-        favDialog.close(readedCheck.value);
+        favDialog.close();
         dialogForm.reset();
     } else {
         event.preventDefault();
@@ -45,9 +45,44 @@ const gridBooks = document.querySelector(".books");
 
 function showBooks() {
     myLibrary.forEach(element => {
-        const newBook = document.createElement("div");
-        newBook.textContent = element.info();
-        gridBooks.appendChild(newBook);
+        const cardBook = document.createElement("div");
+        cardBook.classList.add('card');
+
+        const cardTitle = document.createElement('div');
+        cardTitle.textContent = "title: ";
+
+        const title = document.createElement('div');
+        cardTitle.textContent = element.name;
+
+        const cardAuthor = document.createElement('div');
+        cardAuthor.textContent = "author: ";
+
+        const author = document.createElement('div');
+        cardAuthor.textContent = element.author;
+
+        const cardPages = document.createElement('div');
+        cardPages.textContent = "pages: ";
+
+        const pages = document.createElement('div');
+        cardPages.textContent = element.pages;
+
+        const cardRead = document.createElement('div');
+        cardRead.textContent = (element.read)? "read" : "no read";
+
+        const checkboxRead = document.createElement("input");
+        checkboxRead.type = "checkbox";
+
+        checkboxRead.checked = element.read;
+
+        cardBook.appendChild(cardTitle);
+        cardBook.appendChild(title);
+        cardBook.appendChild(cardAuthor);
+        cardBook.appendChild(author);
+        cardBook.appendChild(cardPages);
+        cardBook.appendChild(pages);
+        cardBook.appendChild(cardRead);
+        cardBook.appendChild(checkboxRead);
+        gridBooks.appendChild(cardBook);
     });
 }
 
