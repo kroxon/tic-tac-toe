@@ -8,12 +8,16 @@ body {
     text-align: center;
 }
 
+#showDialog {
+
+}
+
 div.inputs {
     display: grid;
     grid-template-columns: auto 1fr;
     grid-template-rows: repeat(4, 50px);
     justify-items: start;
-    align-items: center; 
+    align-items: center;
     gap: 10px;
     font-size: 1.3rem;
 }
@@ -27,7 +31,7 @@ div.inputs {
 }
 
 input[type='checkbox'] {
-    accent-color:  rgb(11, 155, 18);
+    accent-color: rgb(11, 155, 18);
     transform: scale(1.5);
 }
 
@@ -49,8 +53,51 @@ form button {
 }
 
 .books {
+    padding-top: 20px;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     grid-auto-rows: auto;
+    gap: 10px;
 }
 
+.card {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    grid-template-rows: repeat(4, auto);
+    justify-items: start;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+    border: solid 1px black;
+    border-radius: 10px;
+    align-items: stretch;
+    justify-content: stretch;
+}
+
+.readBtn, #showDialog {
+    font-size: 1rem;
+    padding: 5px 0px;
+    width: 80px;
+    border-radius: 5px;
+    border-color: transparent;
+    background-color: rgb(103, 218, 68);
+}
+
+.nRead {
+    background-color: rgb(191, 231, 10);
+}
+
+.data {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.rmv {
+    font-size: 1rem;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin:0 10px 0 auto;
+    border-color: transparent;
+    background-color: rgb(219, 88, 36); 
+}
