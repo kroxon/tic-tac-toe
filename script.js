@@ -73,18 +73,82 @@ function GameController(
         console.log(`${getActivePlayer().name}'s turn.`);
     };
 
+    function Winner() {
+        let winner = null;
+
+        const setWinner = (player) => {
+            winner = player;
+        };
+
+        const getWinner = () => winner;
+
+        return {
+            setWinner,
+            getWinner
+        };
+    }
+
     const playRound = (row, column) => {
         console.log(
-            `The ${getActivePlayer().name}  selects cell ${row} ${column}...`
+            `The ${getActivePlayer().name} selects cell ${row} ${column}...`
         );
         if (board.markCell(row, column, getActivePlayer().mark)) {
 
             /*  This is where we would check for a winner and handle that logic,
                 such as a win message. */
 
-            switchPlayerTurn();
-            printNewRound();
-        } 
+            const winner = Winner();
+
+            board.getBoard().forEach(row => {
+                let count = 0;
+                const a = row[0].getValue();
+                row.forEach(element => {
+                    if (element.getValue() === a && a != 0)
+                        count++;
+                    if (count === board.getBoard().length)
+                        winner.setWinner(getActivePlayer().name);
+                });
+            });
+
+            for (i = 0; i < board.getBoard().length; i++) {
+                let count = 0;
+                const mark = board.getBoard()[i][0].getValue();
+                for (j = 0; j < board.getBoard().length; j++) {
+                    if (board.getBoard()[j][i].getValue() === mark && mark != 0)
+                        count++
+                    if (count === board.getBoard().length)
+                        winner.setWinner(getActivePlayer().name);
+                }
+            }
+
+            let count = 0;
+            let mark = board.getBoard()[0][0].getValue();
+            for (i = 0; i < board.getBoard().length; i++) {
+                if (board.getBoard()[i][i].getValue() === mark && mark != 0)
+                    count++
+                if (count === board.getBoard().length)
+                    winner.setWinner(getActivePlayer().name);
+            }
+
+            count = 0;
+            mark = board.getBoard()[board.getBoard().length - 1][0].getValue();
+            for (i = 0; i < board.getBoard().length; i++) {
+                if (board.getBoard()[board.getBoard().length - 1 - i][i].getValue() === mark && mark != 0)
+                    count++
+                if (count === board.getBoard().length)
+                    winner.setWinner(getActivePlayer().name);
+            }
+
+            if (winner.getWinner() === null) {
+                switchPlayerTurn();
+                printNewRound();
+            }
+            else
+                console.log(
+                    `${winner.getWinner()} wins!`
+                );
+            board.printBoard();
+        }
     };
 
     printNewRound();
