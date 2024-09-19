@@ -1,0 +1,13 @@
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 50px);
+    grid-template-rows: repeat(3, 50px);
+    gap: 4px;
+    grid-auto-flow: column;
+    align-content: center;
+}
+
+button.cell {
+    font-size: 1.5rem;
+    text-align: center;
+}
