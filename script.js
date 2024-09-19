@@ -133,21 +133,40 @@ function GameController(
 function ScreenController() {
     const game = GameController();
     const boardDiv = document.querySelector(".board");
+    const activePlayer = document.querySelector("#active");
 
-    const displayBoard = () => {
-        const size = game.getBoard().length
+    const updateScreen = () => {
+        boardDiv.textContent = "";
+
+        const board = game.getBoard();
+        const size = board.length;
+        activePlayer.textContent = game.getActivePlayer().name;
+
         for (i = 0; i < size; i++) {
             for (j = 0; j < size; j++) {
                 const cell = document.createElement('button');
                 cell.classList.add("cell");
-                cell.textContent = game.getBoard()[i][j].getValue();
+                cell.dataset.column = j;
+                cell.dataset.row = i;
+                cell.textContent = board[i][j].getValue();
                 boardDiv.appendChild(cell);
             }
         }
     }
 
-    game.playRound(0, 1);
-    displayBoard();
+    function clickHandlerBoard(e) {
+        const selectedRow = e.target.dataset.row;
+        const selectedColumn = e.target.dataset.column;
+        if (!selectedColumn) return;
+
+        game.playRound(selectedRow, selectedColumn);
+        updateScreen();
+    }
+
+    boardDiv.addEventListener("click", clickHandlerBoard);
+
+    updateScreen();
+
 
 }
 
