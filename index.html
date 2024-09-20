@@ -12,16 +12,48 @@
 <body>
 
     <div class="container">
+
+
+
+        <div class="active">
+            <h2>Active Player</h2>
+            <h1 id="activePlayer"></h1>
+        </div>
+
+        <div class="players">
+            <div>
+                <h1>Player One</h1>
+                <h2>◯</h2>
+            </div>
+            <div>
+                <h1>Player Two</h1>
+                <h2>X</h2>
+            </div>
+        </div>
+
         <div class="board"></div>
-        <div class="setting">
-            <h1>Player One</h1>
-            <h2>◯</h2>
-            <h1>Player Two</h1>
-            <h2>X</h2>
+        <div class="buttons">
+            <button id="restartBtn">Restart</button>
+            <button id="renameBtn">Rename</button>
         </div>
-        <div>Active Player
-            <h1 id="active"></h1>
-        </div>
+    </div>
+
+    <div>
+        <dialog id="favDialog">
+            <div class="container">
+                <h2>Input Names:</h2>
+
+                <div class="inputs">
+                    <label for="playerOne"><b>Player One: </b></label>
+                    <input type="text" name="playerOne">
+                    <label for="playerTwo"><b>Player Two: </b></label>
+                    <input type="text" name="playerTwo">
+                </div>
+            </div>
+            <div>
+                <button id="startBtn" value="true">Start</button>
+            </div>
+        </dialog>
     </div>
 
 </body>

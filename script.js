@@ -133,7 +133,11 @@ function GameController(
 function ScreenController() {
     const game = GameController();
     const boardDiv = document.querySelector(".board");
-    const activePlayer = document.querySelector("#active");
+    const favDialog = document.getElementById("favDialog");
+    const startBtn = favDialog.querySelector("#startBtn");
+    const restartBtn = favDialog.querySelector("#restartBtn");
+    const renameBtn = favDialog.querySelector("#renameBtn");
+    const activePlayer = document.querySelector("#activePlayer");
 
     const updateScreen = () => {
         boardDiv.textContent = "";
@@ -163,10 +167,22 @@ function ScreenController() {
         updateScreen();
     }
 
+
     boardDiv.addEventListener("click", clickHandlerBoard);
+
+    function openDialog() {
+        favDialog.showModal();
+    }
+
+    startBtn.addEventListener("click", () => {
+        favDialog.close();
+
+    });
+
 
     updateScreen();
 
+    openDialog();
 
 }
 
