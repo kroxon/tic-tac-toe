@@ -12,6 +12,14 @@ h2.cell {
     margin: 0 0 0 auto;
 }
 
+h1#score, h2 {
+    margin-bottom: 0;
+}
+
+h1#p1Name, h1#p2Name {
+    margin: 0 0 10px 0;
+}
+
 button.cell:hover {
     /* background-color: cadetblue; */
     color: white;
@@ -65,13 +73,21 @@ button.cell:hover {
     gap: 40px;
 }
 
+.winner {
+    grid-area: 3 / 1 / 4 / 4;
+    text-align: center;
+    margin-top: 40px;
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
 .active {
     grid-area: 1 / 1 / 2 / 4;
     justify-self: center;
     text-align: center;
 }
 
-#favDialog {
+#favDialog, #renameDialog {
     background-color: rgb(104, 218, 114);
     padding: 10 px;
 }

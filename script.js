@@ -63,11 +63,13 @@ function GameController(
     const players = [
         {
             name: playerOneName,
-            mark: "◯"
+            mark: "◯",
+            score: 0
         },
         {
             name: playerTwoName,
-            mark: "X"
+            mark: "X",
+            score: 0
         }
     ];
 
@@ -80,6 +82,10 @@ function GameController(
     const resetBoard = () => {
         board.resetBoard();
         activePlayer = players[0];
+    }
+
+    const resetScore = () => {
+        players[0].score = players[1].score = 0;
     }
 
     const getActivePlayer = () => activePlayer;
@@ -100,6 +106,10 @@ function GameController(
         const firstValue = line[0].getValue();
         return firstValue !== "" && line.every(cell => cell.getValue() === firstValue);
     };
+
+    const checkFullBoard = (board) => {
+        return board.every(row => row.every(cell => cell.getValue() !== ""));
+    }
 
     const checkForWinner = () => {
         const boardArray = board.getBoard();
@@ -125,6 +135,10 @@ function GameController(
             return getActivePlayer().name;
         }
 
+        if (checkFullBoard(boardArray)) {
+            return "draw";
+        }
+
         return null;
     };
 
@@ -136,6 +150,8 @@ function GameController(
 
             if (winner) {
                 console.log(`${winner} wins!`);
+                if (winner !== "draw")
+                    activePlayer.score++;
                 board.printBoard();
             } else {
                 switchPlayerTurn();
@@ -151,8 +167,10 @@ function GameController(
         getActivePlayer,
         getBoard: board.getBoard,
         resetBoard,
+        resetScore,
         setPlayersNames,
-        getPlayers
+        getPlayers,
+        checkForWinner
     };
 }
 
@@ -168,12 +186,38 @@ function ScreenController() {
     const playerTwoInput = favDialog.querySelector('input[name="playerTwo"]');
     const playerOneNameLabel = document.querySelector('#p1Name');
     const playerTwoNameLabel = document.querySelector('#p2Name');
+    const score = document.querySelector('#score');
+    const winner = document.querySelector('.winner');
+
+    //rename
+    const renameDialog = document.querySelector("#renameDialog");
+    const renameDBtn = renameDialog.querySelector("#renameDBtn");
+    const cancelRenameDBtn = renameDialog.querySelector("#cancelRenameDBtn");
 
     const updateScreen = () => {
+
+        score.textContent = game.getPlayers()[0].score + " : " + game.getPlayers()[1].score;
+
         boardDiv.textContent = "";
 
         const board = game.getBoard();
         const size = board.length;
+        activePlayer.textContent = game.getActivePlayer().name;
+
+        if (game.checkForWinner()) {
+            if (game.checkForWinner() === "draw") {
+                winner.textContent = "It's a draw!";
+                console.log("draw");
+            }
+            else
+                winner.textContent = `The winner is ${game.checkForWinner()}!`;
+            game.resetBoard();
+            setTimeout(function () {
+                winner.textContent = '';
+            }, 2000);
+
+        }
+
         activePlayer.textContent = game.getActivePlayer().name;
 
         for (i = 0; i < size; i++) {
@@ -187,9 +231,9 @@ function ScreenController() {
             }
         }
 
-        console.log(game.getPlayers());
         playerOneNameLabel.textContent = game.getPlayers()[0].name;
         playerTwoNameLabel.textContent = game.getPlayers()[1].name;
+
     }
 
     function clickHandlerBoard(e) {
@@ -208,6 +252,10 @@ function ScreenController() {
         favDialog.showModal();
     }
 
+    function openRenameDialog() {
+        renameDialog.showModal();
+    }
+
     startBtn.addEventListener("click", () => {
         const name1 = playerOneInput.value || "Player One";
         const name2 = playerTwoInput.value || "Player Two";
@@ -218,8 +266,13 @@ function ScreenController() {
 
     restartBtn.addEventListener("click", () => {
         game.resetBoard();
+        game.resetScore();
         updateScreen();
     });
+
+    renameBtn.addEventListener("click", () =>
+        openRenameDialog()
+    )
 
     updateScreen();
     openDialog();
