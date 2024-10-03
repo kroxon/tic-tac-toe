@@ -12,6 +12,17 @@ function Board() {
 
     const getBoard = () => board;
 
+    function resetBoard() {
+        board.splice(0, board.length);
+
+        for (let i = 0; i < rows; i++) {
+            board[i] = [];
+            for (let j = 0; j < columns; j++) {
+                board[i].push(Cell());
+            }
+        }
+    }
+
     const markCell = (row, column, player) => {
         const availableCell = board[row][column];
 
@@ -25,7 +36,7 @@ function Board() {
         console.log(boardWithCellValues);
     };
 
-    return { getBoard, markCell, printBoard };
+    return { getBoard, markCell, printBoard, resetBoard };
 }
 
 function Cell() {
@@ -66,7 +77,19 @@ function GameController(
         activePlayer = activePlayer === players[0] ? players[1] : players[0];
     };
 
+    const resetBoard = () => {
+        board.resetBoard();
+        activePlayer = players[0];
+    }
+
     const getActivePlayer = () => activePlayer;
+
+    const getPlayers = () => players;
+
+    const setPlayersNames = (name1, name2) => {
+        players[0].name = name1;
+        players[1].name = name2;
+    }
 
     const printNewRound = () => {
         board.printBoard();
@@ -126,7 +149,10 @@ function GameController(
     return {
         playRound,
         getActivePlayer,
-        getBoard: board.getBoard
+        getBoard: board.getBoard,
+        resetBoard,
+        setPlayersNames,
+        getPlayers
     };
 }
 
@@ -135,9 +161,13 @@ function ScreenController() {
     const boardDiv = document.querySelector(".board");
     const favDialog = document.getElementById("favDialog");
     const startBtn = favDialog.querySelector("#startBtn");
-    const restartBtn = favDialog.querySelector("#restartBtn");
-    const renameBtn = favDialog.querySelector("#renameBtn");
+    const restartBtn = document.querySelector("#restartBtn");
+    const renameBtn = document.querySelector("#renameBtn");
     const activePlayer = document.querySelector("#activePlayer");
+    const playerOneInput = favDialog.querySelector('input[name="playerOne"]');
+    const playerTwoInput = favDialog.querySelector('input[name="playerTwo"]');
+    const playerOneNameLabel = document.querySelector('#p1Name');
+    const playerTwoNameLabel = document.querySelector('#p2Name');
 
     const updateScreen = () => {
         boardDiv.textContent = "";
@@ -156,6 +186,10 @@ function ScreenController() {
                 boardDiv.appendChild(cell);
             }
         }
+
+        console.log(game.getPlayers());
+        playerOneNameLabel.textContent = game.getPlayers()[0].name;
+        playerTwoNameLabel.textContent = game.getPlayers()[1].name;
     }
 
     function clickHandlerBoard(e) {
@@ -175,13 +209,19 @@ function ScreenController() {
     }
 
     startBtn.addEventListener("click", () => {
+        const name1 = playerOneInput.value || "Player One";
+        const name2 = playerTwoInput.value || "Player Two";
+        game.setPlayersNames(name1, name2);
         favDialog.close();
-
+        updateScreen();
     });
 
+    restartBtn.addEventListener("click", () => {
+        game.resetBoard();
+        updateScreen();
+    });
 
     updateScreen();
-
     openDialog();
 
 }
