@@ -1,7 +1,7 @@
 button.cell {
     font-size: 1.5rem;
     text-align: center;
-    background-color: rgb(73, 116, 172);
+    background-color: rgb(40, 161, 46);
 }
 
 button.cell:hover {
@@ -59,4 +59,38 @@ button.cell:hover {
 .active {
     grid-area: 1 / 1 / 2 / 4;
     justify-self: center;
+}
+
+#favDialog {
+    background-color: rgb(104, 218, 114);
+    padding: 10 px;
+}
+
+dialog::backdrop {
+    backdrop-filter: blur(10px);
+}
+
+.inputs {
+    font-size: 1.2rem;
+}
+
+.inputs > * {
+    padding: 10px 0;
+}
+
+.inputs input {
+    height: 2rem;
+    font-size: 1.3rem;
+    padding: 5px;
+    border-color: transparent;
+    border-radius: 5px;
+}
+
+.controller {
+    font-size: 1.2rem;
+    font-weight: 700;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border-color: transparent;
+    background-color: rgb(7, 124, 70);
 }
