@@ -190,9 +190,7 @@ function ScreenController() {
     const winner = document.querySelector('.winner');
 
     //rename
-    const renameDialog = document.querySelector("#renameDialog");
-    const renameDBtn = renameDialog.querySelector("#renameDBtn");
-    const cancelRenameDBtn = renameDialog.querySelector("#cancelRenameDBtn");
+    //to do in future
 
     const updateScreen = () => {
 
@@ -252,10 +250,6 @@ function ScreenController() {
         favDialog.showModal();
     }
 
-    function openRenameDialog() {
-        renameDialog.showModal();
-    }
-
     startBtn.addEventListener("click", () => {
         const name1 = playerOneInput.value || "Player One";
         const name2 = playerTwoInput.value || "Player Two";
@@ -269,10 +263,6 @@ function ScreenController() {
         game.resetScore();
         updateScreen();
     });
-
-    renameBtn.addEventListener("click", () =>
-        openRenameDialog()
-    )
 
     updateScreen();
     openDialog();
